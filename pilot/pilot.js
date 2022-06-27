@@ -1,12 +1,13 @@
 "use strict";
-require("dotenv").config()
-// require("../manager/manager");
-// const events = require("../events");
+require("dotenv").config();
 
 const client = require('socket.io-client');
-let host = `http://localhost:${process.env.PORT}/airline`
+// let host2 = `http://localhost:${process.env.PORT}/`
+let host = `http://localhost:${process.env.PORT}/airline`  //3000/airline
 
 const mainConnection = client.connect(host);
+// const Connection = client.connect(host2);
+
 
 mainConnection.on("new-flight", (flight) => {
     // console.log('111111111111111111111111111');
@@ -25,5 +26,5 @@ mainConnection.on("new-flight", (flight) => {
         console.log(`Pilot: flight with ID ${flight.Details.flightID} has arrived`);
         // console.log(flight);
         mainConnection.emit('arrived', flight)
-    }, 3000);
+    }, 7000);
 });
