@@ -6,6 +6,9 @@ const PORT = process.env.PORT
 const server = require('socket.io')(PORT)
 
 const airline = server.of('/airline');
+
+
+
 airline.on('connection', (client) => {
     console.log('connect to airline system ', client.id);
 
@@ -15,12 +18,12 @@ airline.on('connection', (client) => {
 
     });
 
-
     client.on('arrived', (flight) => {
         console.log(flight);
         console.log('------------------------------------------------------');
 
     });
+
 })
 
 
@@ -33,7 +36,6 @@ server.on('connection', (client) => {
         console.log('------------------------------------------------------');
         airline.emit('new-flight', flight)
     });
-
 
 })
 
