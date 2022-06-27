@@ -1,10 +1,15 @@
 'use strict';
-
-const events = require("../events");
+require('dotenv').config()
+// const events = require("../events");
 const { v4: v4 } = require('uuid');
 const { faker } = require('@faker-js/faker');
 
-events.on('new-flight', flightArrived);
+const client = require('socket.io-client');
+let host = `http://localhost:${process.env.PORT}/`
+
+const mainConnection = client.connect(host)
+
+mainConnection.on('new-flight', flightArrived);
 setInterval(() => {
     let flight =
     {
@@ -18,8 +23,8 @@ setInterval(() => {
         },
     }
     // console.log('////////flight//////////');
-    console.log(`Manager: we’re greatly thankful for the amazing flight, ${flight.Details.pilot}`)
-    events.emit("new-flight", flight)
+    console.log(`Manager: new flight with ID ${flight.Details.flightID} have been scheduled`)
+    mainConnection.emit("new-flight", flight)
 }, 10000)
 
 function flightArrived(payload) {
