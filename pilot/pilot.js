@@ -4,9 +4,10 @@ require("dotenv").config()
 // const events = require("../events");
 
 const client = require('socket.io-client');
-let host = `http://localhost:${process.env.PORT}/`
+let host = `http://localhost:${process.env.PORT}/airline`
 
 const mainConnection = client.connect(host);
+
 mainConnection.on("new-flight", (flight) => {
     // console.log('111111111111111111111111111');
     setTimeout(() => {
