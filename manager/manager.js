@@ -18,7 +18,6 @@ airLineConnection.on('new-flight', (payload) => {
 });
 
 
-
 setInterval(() => {
     let flight =
     {
@@ -37,7 +36,7 @@ setInterval(() => {
     mainConnection.emit("new-flight", flight)
 }, 10000)
 
-// 
+
 
 
 
